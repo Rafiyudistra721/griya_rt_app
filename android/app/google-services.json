@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "478872063009",
+    "project_id": "griya-rt-app",
+    "storage_bucket": "griya-rt-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478872063009:android:bc79f2b90f1c6bfe236760",
+        "android_client_info": {
+          "package_name": "com.example.griya_rt_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvhFJu7QutrAqKkDPt4TsQRcOJOdNrrEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
