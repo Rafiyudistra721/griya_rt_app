@@ -62,8 +62,8 @@ class LoginView extends GetView<LoginController> {
                             10.height,
                             if (controller.isRegis)
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 20),
                                 child: Row(
                                   children: [
                                     const Icon(
@@ -567,7 +567,8 @@ class LoginView extends GetView<LoginController> {
                             5.height,
                             if (controller.isRegis)
                               Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
+                                padding: const EdgeInsets.only(
+                                    left: 20.0, bottom: 20.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
