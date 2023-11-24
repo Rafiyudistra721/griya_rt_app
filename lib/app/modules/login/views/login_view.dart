@@ -13,7 +13,7 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: colorThird,
+      backgroundColor: Colors.white,
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -43,11 +43,17 @@ class LoginView extends GetView<LoginController> {
                 Container(
                   color: Colors.white,
                   margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 8,
-                    shadowColor: Colors.grey,
-                    shape: RoundedRectangleBorder(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 8,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -223,8 +229,7 @@ class LoginView extends GetView<LoginController> {
                                         if (value!.isEmpty) {
                                           return 'Harap isi password Anda';
                                         }
-                                        if (controller.isRegis &&
-                                            value != controller.passC2.text) {
+                                        if (value != controller.passC2.text) {
                                           return 'Kata sandi tidak cocok';
                                         }
                                         return null;
@@ -294,8 +299,7 @@ class LoginView extends GetView<LoginController> {
                                         if (value!.isEmpty) {
                                           return 'Harap isi password Anda';
                                         }
-                                        if (controller.isRegis &&
-                                            value != controller.passC.text) {
+                                        if (value != controller.passC.text) {
                                           return 'Kata sandi tidak cocok';
                                         }
                                         return null;
@@ -326,7 +330,7 @@ class LoginView extends GetView<LoginController> {
                                         cursorColor: colorPrimary,
                                         controller: controller.tlpC,
                                         autocorrect: false,
-                                        keyboardType: TextInputType.number,
+                                        keyboardType: TextInputType.phone,
                                         textInputAction: TextInputAction.next,
                                         decoration: const InputDecoration(
                                           contentPadding: EdgeInsets.only(
@@ -518,6 +522,7 @@ class LoginView extends GetView<LoginController> {
                                   ],
                                 ),
                               ),
+                            5.height,
                             // BIRTH DATE
                             if (controller.isRegis)
                               Container(
@@ -544,7 +549,7 @@ class LoginView extends GetView<LoginController> {
                                           onTap: () async => await controller
                                               .handleBirthDate(context),
                                           title: const Text(
-                                            "Birth Date",
+                                            "Tanggal Lahir",
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 color: colorPrimary),
@@ -564,7 +569,7 @@ class LoginView extends GetView<LoginController> {
                                   ],
                                 ),
                               ),
-                            5.height,
+                            3.height,
                             if (controller.isRegis)
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -572,15 +577,27 @@ class LoginView extends GetView<LoginController> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Gender',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: colorPrimary,
+                                    const Padding(
+                                      padding: EdgeInsets.only(left: 40.0),
+                                      child: Text(
+                                        'Gender',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: colorPrimary,
+                                        ),
                                       ),
                                     ),
                                     Row(
                                       children: [
+                                        Container(
+                                          width: 30,
+                                          alignment: Alignment.centerLeft,
+                                          child: const Icon(
+                                            Icons.person,
+                                            color: colorPrimary,
+                                          ),
+                                        ),
+                                        5.width,
                                         Radio<String>(
                                           value: 'male',
                                           groupValue: controller.selectedGender,
@@ -590,7 +607,7 @@ class LoginView extends GetView<LoginController> {
                                           },
                                           activeColor: colorPrimary,
                                         ),
-                                        Text('male'),
+                                        const Text('male'),
                                         Radio<String>(
                                           value: 'female',
                                           groupValue: controller.selectedGender,
@@ -600,7 +617,7 @@ class LoginView extends GetView<LoginController> {
                                           },
                                           activeColor: colorPrimary,
                                         ),
-                                        Text('female'),
+                                        const Text('female'),
                                       ],
                                     ),
                                   ],
@@ -614,18 +631,76 @@ class LoginView extends GetView<LoginController> {
                 ),
                 //BUTTON
                 Padding(
-                  padding: EdgeInsets.only(top: 25, left: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        if (controller.isRegis) {
+                          if (controller.isSaving) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      const CircularProgressIndicator(
+                                          color: colorPrimary),
+                                      15.height,
+                                      const Text(
+                                        'Loading..',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: colorPrimary),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            controller.signup();
+                          }
+                        } else {
+                          if (controller.isSaving) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      const CircularProgressIndicator(
+                                          color: colorPrimary),
+                                      15.height,
+                                      const Center(
+                                        child: Text(
+                                          'Loading..',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: colorPrimary),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            controller.login();
+                          }
+                        }
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 8,
                       shadowColor: Colors.grey,
                       backgroundColor: colorPrimary,
-                      minimumSize: Size(double.infinity, 45),
+                      minimumSize: const Size(double.infinity, 45),
                     ),
                     child: Text(
                       controller.isRegis ? 'Daftar' : 'Masuk',
-                      style: TextStyle(color: Colors.white, fontSize: 15),
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
                     ),
                   ),
                 ),
@@ -641,8 +716,7 @@ class LoginView extends GetView<LoginController> {
                         controller.isRegis
                             ? 'Sudah Punya Akun? Login Disini'
                             : 'Belum Punya Akun? Daftar Disini',
-                        style: TextStyle(
-                            color: colorPrimary, fontStyle: FontStyle.italic),
+                        style: const TextStyle(color: colorPrimary),
                       ),
                     ),
                   ),
@@ -652,12 +726,14 @@ class LoginView extends GetView<LoginController> {
                   child: Align(
                     alignment: Alignment.center,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        controller.resetPassword(controller.emailC.text);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.only(top: 12),
                         child: Text(
                           controller.isRegis ? '' : 'Lupa Password',
-                          style: TextStyle(color: colorPrimary),
+                          style: const TextStyle(color: colorPrimary),
                         ),
                       ),
                     ),
