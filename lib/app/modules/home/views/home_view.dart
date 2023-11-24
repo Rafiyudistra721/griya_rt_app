@@ -21,7 +21,7 @@ class HomeView extends GetView<HomeController> {
             onPressed: () => authC.logout(),
             icon: const Icon(
               Icons.logout,
-              color: Colors.black,
+              color: Colors.blue,
             ),
           ),
         ),
