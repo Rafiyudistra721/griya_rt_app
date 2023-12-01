@@ -16,6 +16,7 @@ dependencies:
   intl: 0.18.1
   flutter: 
     sdk: flutter
+  flutter_inset_box_shadow: ^1.0.8
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
@@ -38,5 +39,6 @@ flutter:
     - assets/icons/logo_login.png
     - assets/bgLR.png
     - assets/bgLR.jpg
+    - assets/images/finance.png
   uses-material-design: true
 
