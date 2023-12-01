@@ -8,25 +8,20 @@ class UserModel {
   String? id;
   String? username;
   String? email;
-  String? password;
   String? image;
   int? telephone;
-  String? province;
-  String? city;
   String? adress;
   DateTime? birthDate;
   String? gender;
   DateTime? time;
+  bool? isAdmin = false;
 
   UserModel ({
     this.id,
     this.username,
     this.email,
-    this.password,
     this.image,
     this.telephone,
-    this.province,
-    this.city,
     this.adress,
     this.birthDate,
     this.gender,
@@ -39,11 +34,8 @@ class UserModel {
       id: doc.id,
       username: json?['username'],
       email: json?['email'],
-      password: json?['password'],
       image: json?['image'],
       telephone: json?['telephone'],
-      province: json?['province'],
-      city: json?['city'],
       adress: json?['adress'],
       birthDate: (json?['birthDate'] as Timestamp?)?.toDate(),
       gender: json?['gender'],
@@ -54,11 +46,8 @@ class UserModel {
     'id' : id,
     'username' : username,
     'email' : email,
-    'password' : password,
     'image' : image,
     'telephone' : telephone,
-    'province' : province,
-    'city' : city,
     'adress' : adress,
     'birthDate' : birthDate,
     'gender' : gender,
