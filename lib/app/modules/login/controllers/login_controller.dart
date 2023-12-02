@@ -24,7 +24,7 @@ class LoginController extends GetxController {
     isPasswordHidden.value = !isPasswordHidden.value;
   }
 
-  Rx<DateTime?> _selectedDate = DateTime(2000).obs;
+  Rx<DateTime?> _selectedDate = DateTime(1800).obs;
   DateTime? get selectedDate => _selectedDate.value;
   set selectedDate(DateTime? value) => _selectedDate.value = value;
 
@@ -77,10 +77,10 @@ class LoginController extends GetxController {
       } else {
         Get.defaultDialog(
           title: 'Verifikasi',
-          titleStyle: TextStyle(color: colorPrimary),
+          titleStyle: const TextStyle(color: colorPrimary),
           middleText:
               'Verifikasi email anda terlebih dahulu, Apakah verifikasi perlu dikirim ulang?',
-          middleTextStyle: TextStyle(color: colorPrimary),
+          middleTextStyle: const TextStyle(color: colorPrimary),
           onConfirm: () async {
             await myUser.user!.sendEmailVerification();
             Get.back();
@@ -100,7 +100,7 @@ class LoginController extends GetxController {
       } else if (e.code == 'wrong-password') {
         toast('Password salah untuk email ini');
       } else {
-        toast(e.toString());
+        toast(e.message);
       }
     } catch (e) {
       toast(e.toString());
@@ -113,10 +113,7 @@ class LoginController extends GetxController {
       UserModel user = UserModel(
         username: nameC.text,
         email: emailC.text,
-        password: passC.text,
         telephone: int.tryParse(tlpC.text),
-        province: provC.text,
-        city: cityC.text,
         adress: adressC.text,
         birthDate: selectedDate,
         gender: selectedGender,
@@ -162,7 +159,7 @@ class LoginController extends GetxController {
       } else if (e.code == 'email-already-in-use') {
         toast('Akun sudah ada untuk email ini');
       } else {
-        toast(e.toString());
+        toast(e.message);
       }
     }
   }
@@ -244,7 +241,7 @@ class LoginController extends GetxController {
   }
 
   @override
-  void onClose() {    
+  void onClose() {
     emailC.clear();
     passC.clear();
     passC2.clear();

@@ -14,3 +14,4 @@ const rtCollection = "RT";
 const invenCollection = "Inventory";
 const infoCollection = "Info";
 const financeCollection = "Finance";
+const wargaCollection = 'Warga';

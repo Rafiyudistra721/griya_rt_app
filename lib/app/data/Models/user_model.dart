@@ -8,7 +8,6 @@ class UserModel {
   String? id;
   String? username;
   String? email;
-  String? password;
   String? image;
   int? telephone;
   String? adress;
@@ -21,7 +20,6 @@ class UserModel {
     this.id,
     this.username,
     this.email,
-    this.password,
     this.image,
     this.telephone,
     this.adress,
@@ -37,7 +35,6 @@ class UserModel {
       id: doc.id,
       username: json?['username'],
       email: json?['email'],
-      password: json?['password'],
       image: json?['image'],
       telephone: json?['telephone'],
       adress: json?['adress'],
@@ -51,7 +48,6 @@ class UserModel {
     'id' : id,
     'username' : username,
     'email' : email,
-    'password' : password,
     'image' : image,
     'telephone' : telephone,
     'adress' : adress,
