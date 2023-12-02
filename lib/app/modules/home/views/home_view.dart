@@ -7,7 +7,7 @@ import 'package:griya_rt_app/app/routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  final authC = Get.find<LoginController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
