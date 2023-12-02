@@ -11,12 +11,11 @@ class UserModel {
   String? password;
   String? image;
   int? telephone;
-  String? province;
-  String? city;
   String? adress;
   DateTime? birthDate;
   String? gender;
   DateTime? time;
+  bool? isAdmin = false;
 
   UserModel ({
     this.id,
@@ -25,12 +24,11 @@ class UserModel {
     this.password,
     this.image,
     this.telephone,
-    this.province,
-    this.city,
     this.adress,
     this.birthDate,
     this.gender,
     this.time,
+    this.isAdmin
   });
 
   UserModel fromJson(DocumentSnapshot doc) {
@@ -42,12 +40,11 @@ class UserModel {
       password: json?['password'],
       image: json?['image'],
       telephone: json?['telephone'],
-      province: json?['province'],
-      city: json?['city'],
       adress: json?['adress'],
       birthDate: (json?['birthDate'] as Timestamp?)?.toDate(),
       gender: json?['gender'],
       time : (json?['time'] as Timestamp?)?.toDate(),
+      isAdmin: json?['isAdmin']
     );
   }
   Map<String, dynamic> get toJson => {
@@ -57,12 +54,11 @@ class UserModel {
     'password' : password,
     'image' : image,
     'telephone' : telephone,
-    'province' : province,
-    'city' : city,
     'adress' : adress,
     'birthDate' : birthDate,
     'gender' : gender,
     'time' : time,
+    'isAdmin' : isAdmin
   };
 
   Database db =  Database(

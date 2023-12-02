@@ -11,3 +11,6 @@ FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 const usersCollection = "Users";
 const rtCollection = "RT";
+const invenCollection = "Inventory";
+const infoCollection = "Info";
+const financeCollection = "Finance";
