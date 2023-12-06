@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_print, invalid_use_of_protected_member
+// ignore_for_file: avoid_print, invalid_use_of_protected_member, prefer_final_fields, unnecessary_overrides
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/data/Models/inven_model.dart';
+import 'package:griya_rt_app/app/data/Models/rt_model.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class InvenController extends GetxController {
@@ -28,6 +29,7 @@ class InvenController extends GetxController {
     invenModel.condition = conditionC.text;
     if (invenModel.id.isEmptyOrNull) {
       invenModel.time = DateTime.now();
+      invenModel.rtId = "ezcwJfC1XKNIEGrTCUNI";
     }
 
     try {
@@ -59,7 +61,7 @@ class InvenController extends GetxController {
         },
         textConfirm: "OK",
         textCancel: "Batalkan",
-        content: Column(
+        content: const Column(
           children: [
             Text('Apakah anda yakin ingin menghapus data aset?'),
           ],

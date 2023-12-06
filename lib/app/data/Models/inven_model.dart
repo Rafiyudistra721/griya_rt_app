@@ -63,7 +63,6 @@ class InvenModel {
   Stream<List<InvenModel>> streamList() async* {
     yield* firebaseFirestore
     .collectionGroup(invenCollection)
-    .where("id", isNull: true)
     .orderBy("time", descending: true)
     .snapshots()
     .map((query) {

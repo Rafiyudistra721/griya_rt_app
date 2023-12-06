@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields, non_constant_identifier_names, prefer_interpolation_to_compose_strings, avoid_print, unnecessary_overrides
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: prefer_final_fields, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +11,8 @@ import 'package:nb_utils/nb_utils.dart';
 class AssetForm extends GetView<InvenController> {
   GlobalKey<FormState> _form = GlobalKey();
   InvenModel invenModel = Get.arguments ?? InvenModel();
+
+  AssetForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class AssetForm extends GetView<InvenController> {
                         borderSide: BorderSide(color: colorPrimary))),
               ),
               20.height,
-              Container(
+              SizedBox(
                 width: Get.width,
                 child: FloatingActionButton.extended(
                     backgroundColor: colorPrimary,

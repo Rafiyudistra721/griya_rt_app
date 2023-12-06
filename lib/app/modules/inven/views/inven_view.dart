@@ -42,9 +42,12 @@ class InvenView extends GetView<InvenController> {
                       onPressed: () {
                         Get.defaultDialog(
                           contentPadding: EdgeInsets.zero,
-                          barrierDismissible: false,
+                          barrierDismissible: true,
                           content: AssetForm(),
-                          title: "Tambah Aset", titleStyle: TextStyle(fontSize: 20, ),
+                          title: "Tambah Aset",
+                          titleStyle: const TextStyle(
+                            fontSize: 20,
+                          ),
                         );
                       },
                       icon: const Icon(Icons.add_circle_outline))
@@ -61,20 +64,37 @@ class InvenView extends GetView<InvenController> {
                 ],
               ),
               15.height,
-              Container(
-                height: 500,
-                width: double.infinity,
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: const ScrollPhysics(),
-                    itemCount: controller.listInven.length,
-                    itemBuilder: (context, index) {
-                      return AssetList(
-                        index: index,
-                        inventory: controller.listInven[index],
-                      );
-                    }),
-              ),
+              Obx(() {
+                if (controller.listInven.length <1) {
+                  return Container(
+                      height: 100,
+                      width: 200,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Text("Belum ada aset yang ditambahkan"),
+                      ));
+                } else {
+                  return SizedBox(
+                    height: 400,
+                    width: double.infinity,
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
+                        clipBehavior: Clip.antiAlias,
+                        itemCount: controller.listInven.length,
+                        itemBuilder: (context, index) {
+                          return AssetList(
+                            index: index,
+                            inventory: controller.listInven[index],
+                          );
+                        }),
+                  );
+                }
+              })
             ],
           ),
         ));
