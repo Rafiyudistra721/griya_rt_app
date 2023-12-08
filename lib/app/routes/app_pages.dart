@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 
 import '../modules/finance/bindings/finance_binding.dart';
@@ -6,6 +8,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/inven/bindings/inven_binding.dart';
+import '../modules/inven/views/inven_view.dart';
 import '../modules/tranForm/bindings/tran_form_binding.dart';
 import '../modules/tranForm/views/tran_form_view.dart';
 
@@ -28,6 +32,11 @@ class AppPages {
       binding: LoginBinding(),
     ),
     GetPage(
+      name: _Paths.INVEN,
+      page: () => const InvenView(),
+      binding: InvenBinding(),
+     ),
+GetPage(
       name: _Paths.FINANCE,
       page: () => FinanceView(),
       binding: FinanceBinding(),
