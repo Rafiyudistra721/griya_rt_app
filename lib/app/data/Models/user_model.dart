@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:griya_rt_app/app/data/database.dart';
 import 'package:griya_rt_app/app/integrations/firestore.dart';
-
 
 class UserModel {
   String? id;
@@ -16,7 +16,7 @@ class UserModel {
   DateTime? time;
   bool? isAdmin = false;
 
-  UserModel ({
+  UserModel({
     this.id,
     this.username,
     this.email,
@@ -26,6 +26,7 @@ class UserModel {
     this.birthDate,
     this.gender,
     this.time,
+    this.isAdmin,
   });
 
   UserModel fromJson(DocumentSnapshot doc) {
@@ -39,26 +40,29 @@ class UserModel {
       adress: json?['adress'],
       birthDate: (json?['birthDate'] as Timestamp?)?.toDate(),
       gender: json?['gender'],
-      time : (json?['time'] as Timestamp?)?.toDate(),
+      time: (json?['time'] as Timestamp?)?.toDate(),
+      isAdmin: json?['isAdmin'],
     );
   }
-  Map<String, dynamic> get toJson => {
-    'id' : id,
-    'username' : username,
-    'email' : email,
-    'image' : image,
-    'telephone' : telephone,
-    'adress' : adress,
-    'birthDate' : birthDate,
-    'gender' : gender,
-    'time' : time,
-  };
 
-  Database db =  Database(
-    collectionReference: firebaseFirestore.collection(
-      usersCollection,
-    ), 
-    storageReference: firebaseStorage.ref(usersCollection));
+  Map<String, dynamic> get toJson => {
+        'id': id,
+        'username': username,
+        'email': email,
+        'image': image,
+        'telephone': telephone,
+        'adress': adress,
+        'birthDate': birthDate,
+        'gender': gender,
+        'time': time,
+        'isAdmin': isAdmin,
+      };
+
+  Database db = Database(
+      collectionReference: firebaseFirestore.collection(
+        usersCollection,
+      ),
+      storageReference: firebaseStorage.ref(usersCollection));
 
   Future<UserModel> save({File? file}) async {
     id == null ? id = await db.add(toJson) : await db.edit(toJson);

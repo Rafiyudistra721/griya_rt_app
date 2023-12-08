@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/data/Models/user_model.dart';
+import 'package:griya_rt_app/app/data/Models/warga_model.dart';
 import 'package:griya_rt_app/app/integrations/firestore.dart';
 import 'package:griya_rt_app/app/routes/app_pages.dart';
 import 'package:griya_rt_app/app/utils/colors.dart';
@@ -62,6 +63,8 @@ class LoginController extends GetxController {
   bool get isSaving => _isSaving.value;
   set isSaving(value) => _isSaving.value = value;
 
+  var warga = WargaModel();
+
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Stream<User?> get streamAuthStatus => auth.authStateChanges();
@@ -119,6 +122,7 @@ class LoginController extends GetxController {
         gender: selectedGender,
         image: '',
         time: DateTime.now(),
+        isAdmin: false,
       );
       UserCredential myUser = await auth.createUserWithEmailAndPassword(
         email: emailC.text,
@@ -132,6 +136,11 @@ class LoginController extends GetxController {
             .doc(user.id)
             .set(user.toJson)
             .then((value) {
+          warga.userId = user.id;
+          warga.rtId = 'ezcwJfC1XKNIEGrTCUNI';
+          warga.time = DateTime.now();
+          warga.status = 'Pending';
+          warga.save();
           Get.defaultDialog(
               title: "Verifikasi Email",
               middleText: "Kami telah mengirimkan verifikasi ke Email anda",
