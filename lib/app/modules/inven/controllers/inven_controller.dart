@@ -55,6 +55,7 @@ class InvenController extends GetxController {
           try {
             await invenModel.delete();
             Get.back();
+            toast("Aset Telah Dihapus");
           } catch (e) {
             print(e);
           }

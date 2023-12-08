@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:griya_rt_app/app/data/Models/inven_model.dart';
 import 'package:griya_rt_app/app/utils/colors.dart';
 import 'package:griya_rt_app/app/widgets/asset_form.dart';
 import 'package:griya_rt_app/app/widgets/asset_list.dart';
@@ -41,9 +42,10 @@ class InvenView extends GetView<InvenController> {
                   IconButton(
                       onPressed: () {
                         Get.defaultDialog(
+                          backgroundColor: Colors.white,
                           contentPadding: EdgeInsets.zero,
                           barrierDismissible: true,
-                          content: AssetForm(),
+                          content: AssetForm(invenModel: InvenModel(),),
                           title: "Tambah Aset",
                           titleStyle: const TextStyle(
                             fontSize: 20,

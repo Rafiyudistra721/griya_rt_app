@@ -9,10 +9,11 @@ import 'package:griya_rt_app/app/utils/colors.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class AssetForm extends GetView<InvenController> {
+  AssetForm({required this.invenModel});
+  InvenModel invenModel = InvenModel();
   GlobalKey<FormState> _form = GlobalKey();
-  InvenModel invenModel = Get.arguments ?? InvenModel();
 
-  AssetForm({super.key});
+  // AssetForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,42 +25,52 @@ class AssetForm extends GetView<InvenController> {
           key: _form,
           child: Column(
             children: [
-              AppTextField(
-                textFieldType: TextFieldType.NAME,
-                isValidationRequired: true,
-                controller: controller.assetNameC,
-                decoration: const InputDecoration(
-                    labelText: "Nama Aset",
-                    hintText: "nama aset",
-                    labelStyle: TextStyle(color: colorPrimary),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorPrimary))),
-              ),
-              15.height,
-              AppTextField(
-                textFieldType: TextFieldType.PHONE,
-                isValidationRequired: true,
-                controller: controller.quantityC,
-                decoration: const InputDecoration(
-                  labelText: "Jumlah",
-                  hintText: "jumlah aset",
-                  labelStyle: TextStyle(color: colorPrimary),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: colorPrimary))
+              Card(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      AppTextField(
+                        textFieldType: TextFieldType.NAME,
+                        isValidationRequired: true,
+                        controller: controller.assetNameC,
+                        decoration: const InputDecoration(
+                            labelText: "Nama Aset",
+                            hintText: "nama aset",
+                            labelStyle: TextStyle(color: colorPrimary, fontSize: 15),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: colorPrimary))),
+                      ),
+                      5.height,
+                      AppTextField(
+                        textFieldType: TextFieldType.PHONE,
+                        isValidationRequired: true,
+                        controller: controller.quantityC,
+                        decoration: const InputDecoration(
+                            labelText: "Jumlah",
+                            hintText: "jumlah aset",
+                            labelStyle: TextStyle(color: colorPrimary, fontSize: 15),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: colorPrimary))),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                      5.height,
+                      AppTextField(
+                        textFieldType: TextFieldType.NAME,
+                        isValidationRequired: true,
+                        controller: controller.conditionC,
+                        decoration: const InputDecoration(
+                            labelText: "Kondisi",
+                            hintText: "kondisi aset",
+                            labelStyle: TextStyle(color: colorPrimary, fontSize: 15),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: colorPrimary))),
+                      ),
+                    ],
+                  ),
                 ),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              ),
-              15.height,
-              AppTextField(
-                textFieldType: TextFieldType.NAME,
-                isValidationRequired: true,
-                controller: controller.conditionC,
-                decoration: const InputDecoration(
-                    labelText: "Kondisi",
-                    hintText: "kondisi aset",
-                    labelStyle: TextStyle(color: colorPrimary),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorPrimary))),
               ),
               20.height,
               SizedBox(
