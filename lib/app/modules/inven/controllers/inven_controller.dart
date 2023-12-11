@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/data/Models/inven_model.dart';
-import 'package:griya_rt_app/app/data/Models/rt_model.dart';
+import 'package:griya_rt_app/app/utils/colors.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class InvenController extends GetxController {
@@ -34,7 +34,7 @@ class InvenController extends GetxController {
 
     try {
       await invenModel.save();
-      toast("Aset Telah Ditambahkan");
+      toast("Daftar Aset Telah Diperbarui");
       print("Success");
       Get.back();
     } catch (e) {
@@ -61,10 +61,14 @@ class InvenController extends GetxController {
           }
         },
         textConfirm: "OK",
+        buttonColor: colorPrimary,
+        cancelTextColor: colorPrimary,
+        radius: 15,
         textCancel: "Batalkan",
         content: const Column(
           children: [
             Text('Apakah anda yakin ingin menghapus data aset?'),
+
           ],
         ),
         title: "Konfirmasi hapus"

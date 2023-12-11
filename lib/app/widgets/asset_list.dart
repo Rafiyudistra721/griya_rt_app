@@ -40,14 +40,23 @@ class AssetList extends GetView<InvenController> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
                     onPressed: () {
                       Get.defaultDialog(
                         contentPadding: EdgeInsets.zero,
-                        barrierDismissible: true,
-                        content: AssetForm(invenModel: inventory),
+                        barrierDismissible: false,
+                        content: SizedBox(
+                            height: 345,
+                            width: double.infinity,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  AssetForm(invenModel: inventory),
+                                ],
+                              ),
+                            )),
                         title: "Edit Aset",
                         titleStyle: const TextStyle(
                           fontSize: 20,

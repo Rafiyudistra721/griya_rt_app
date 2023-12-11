@@ -9,18 +9,17 @@ import 'package:griya_rt_app/app/utils/colors.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class AssetForm extends GetView<InvenController> {
-  AssetForm({required this.invenModel});
+  AssetForm({super.key, required this.invenModel});
   InvenModel invenModel = InvenModel();
   GlobalKey<FormState> _form = GlobalKey();
 
-  // AssetForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     controller.modelToController(invenModel);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      margin: const EdgeInsets.all(15),
       child: Obx(() => Form(
           key: _form,
           child: Column(
@@ -37,9 +36,13 @@ class AssetForm extends GetView<InvenController> {
                         decoration: const InputDecoration(
                             labelText: "Nama Aset",
                             hintText: "nama aset",
-                            labelStyle: TextStyle(color: colorPrimary, fontSize: 15),
+                            labelStyle:
+                                TextStyle(color: colorPrimary, fontSize: 15),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: colorPrimary))),
+                        validator: (value) => value.isEmptyOrNull
+                            ? "Bagian ini perlu diisi"
+                            : null,
                       ),
                       5.height,
                       AppTextField(
@@ -49,12 +52,16 @@ class AssetForm extends GetView<InvenController> {
                         decoration: const InputDecoration(
                             labelText: "Jumlah",
                             hintText: "jumlah aset",
-                            labelStyle: TextStyle(color: colorPrimary, fontSize: 15),
+                            labelStyle:
+                                TextStyle(color: colorPrimary, fontSize: 15),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: colorPrimary))),
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
                         ],
+                        validator: (value) => value.isEmptyOrNull
+                            ? "Bagian ini perlu diisi"
+                            : null,
                       ),
                       5.height,
                       AppTextField(
@@ -64,34 +71,55 @@ class AssetForm extends GetView<InvenController> {
                         decoration: const InputDecoration(
                             labelText: "Kondisi",
                             hintText: "kondisi aset",
-                            labelStyle: TextStyle(color: colorPrimary, fontSize: 15),
+                            labelStyle:
+                                TextStyle(color: colorPrimary, fontSize: 15),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: colorPrimary))),
+                        validator: (value) => value.isEmptyOrNull
+                            ? "Bagian ini perlu diisi"
+                            : null,
                       ),
+                      10.height
                     ],
                   ),
                 ),
               ),
               20.height,
-              SizedBox(
-                width: Get.width,
-                child: FloatingActionButton.extended(
-                    backgroundColor: colorPrimary,
-                    onPressed: controller.isSaving
-                        ? null
-                        : () {
-                            if (_form.currentState!.validate()) {
-                              controller.store(invenModel);
-                            }
-                          },
-                    label: controller.isSaving
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          )
-                        : const Text(
-                            "Simpan",
-                            style: TextStyle(color: Colors.white),
-                          )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 116,
+                    child: FloatingActionButton.extended(
+                        backgroundColor: Colors.white,
+                        onPressed: () => Get.back(),
+                        label: const Text(
+                          "Kembali",
+                          style: TextStyle(color: colorPrimary),
+                        )),
+                  ),
+                  5.width,
+                  SizedBox(
+                    width: 116,
+                    child: FloatingActionButton.extended(
+                        backgroundColor: colorPrimary,
+                        onPressed: controller.isSaving
+                            ? null
+                            : () {
+                                if (_form.currentState!.validate()) {
+                                  controller.store(invenModel);
+                                }
+                              },
+                        label: controller.isSaving
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                "Simpan",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                  ),
+                ],
               )
             ],
           ))),
