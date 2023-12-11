@@ -1,15 +1,20 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:griya_rt_app/app/data/Models/user_model.dart';
+// import 'package:griya_rt_app/app/data/Models/user_model.dart';
+import 'package:intl/intl.dart';
 import '../../../routes/app_pages.dart';
+// import '../../editprofile/controllers/editprofile_controller.dart';
 import '../../login/controllers/login_controller.dart';
 import '../controllers/profile_controller.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class ProfileView extends GetView<ProfileController> {
+  // final EditprofileController editProfileController =
+  //     Get.put(EditprofileController());
   final authC = Get.find<LoginController>();
+  // UserModel user = Get.arguments ?? UserModel();
 
   ProfileView({Key? key}) : super(key: key);
   File? image;
@@ -50,6 +55,7 @@ class ProfileView extends GetView<ProfileController> {
                             : CircleAvatar(
                                 radius: 30,
                                 backgroundColor: Color(0xFF161960),
+                                // backgroundImage: AssetImage(''),
                               ),
                         Positioned(
                           bottom: 0,
@@ -86,15 +92,20 @@ class ProfileView extends GetView<ProfileController> {
                       ],
                     ),
                     SizedBox(width: 60),
-                    Positioned(
-                      top: 0,
-                      right: 0,
+                    Padding(
+                      padding: EdgeInsets.all(5),
                       child: IconButton(
                         icon: Icon(
                           Icons.edit,
                           color: Color(0xFF161960),
                         ),
                         onPressed: () {
+                          // Get.toNamed(Routes.EDITPROFILE, arguments: user);
+                          //     ?.then((edit) {
+                          //   if (edit != null && edit is UserModel) {
+                          //     controller.update();
+                          //   }
+                          // });
                           Get.toNamed(
                             Routes.EDITPROFILE,
                           );
@@ -146,6 +157,33 @@ class ProfileView extends GetView<ProfileController> {
                               SizedBox(width: 23),
                               Text(
                                 '${authC.user.email}',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: EdgeInsets.only(left: 33.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.cake,
+                                color: Color(0xFF161960),
+                                size: 40,
+                              ),
+                              SizedBox(width: 23),
+                              Text(
+                                authC.user.birthDate is DateTime
+                                    ? DateFormat("EEE, dd MMM y")
+                                        .format(authC.selectedDate!)
+                                    : '--',
                                 style: TextStyle(fontSize: 18),
                               ),
                             ],

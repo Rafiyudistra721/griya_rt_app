@@ -101,5 +101,7 @@ class UserModel {
     });
   }
 
-  static updateProduct(UserModel user) {}
+  //  static updateProduct(UserModel user) {}
+
+  //  update() {}
 }

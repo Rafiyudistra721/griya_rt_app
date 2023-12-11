@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/data/Models/user_model.dart';
 
 class ProfileController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  RxBool isDataChanged = false.obs;
 
   //TODO: Implement ProfileController
   RxList<UserModel> rxUsers = RxList<UserModel>();
@@ -27,5 +27,5 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  // void increment() => count.value++;
 }

@@ -40,5 +40,6 @@ flutter:
     - assets/icons/logo_login.png
     - assets/bgLR.png
     - assets/bgLR.jpg
+
   uses-material-design: true
 
