@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:griya_rt_app/app/data/Models/finance_model.dart';
 import 'package:griya_rt_app/app/routes/app_pages.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart'
 //     hide BoxDecoration, BoxShadow;
@@ -113,69 +115,117 @@ class FinanceView extends GetView<FinanceController> {
                         ),
                       ],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Transaksi',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Row(
+                    child: Obx(() {
+                      if (controller.finance.length < 1) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      Get.toNamed(Routes.TRAN_FORM);
-                                      // TransactionDialog(context);
-                                    },
-                                    icon: Icon(Icons.add_circle_outline_rounded,
-                                        color: Color(0XFF161960)),
+                                  Text(
+                                    'Transaksi',
+                                    style: TextStyle(fontSize: 20),
                                   ),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          Get.toNamed(Routes.TRAN_FORM);
+                                        },
+                                        icon: Icon(
+                                            Icons.add_circle_outline_rounded,
+                                            color: Color(0XFF161960)),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: ScrollPhysics(),
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  listDialog(context);
+                              ),
+                            ),
+                            Expanded(
+                                child: Center(
+                              child: Text(
+                                'Belum ada transaksi',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ))
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Transaksi',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          Get.toNamed(Routes.TRAN_FORM);
+                                        },
+                                        icon: Icon(
+                                            Icons.add_circle_outline_rounded,
+                                            color: Color(0XFF161960)),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: ScrollPhysics(),
+                                itemCount: controller.finance.length,
+                                itemBuilder: (context, index) {
+                                  TransactionModel time =
+                                      controller.finance[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      listDialog(context);
+                                    },
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text(
+                                            controller
+                                                    .finance[index].activity ??
+                                                'Kegiatan',
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                          subtitle: Text(
+                                            "${DateFormat.yMMMEd().format(time.date ?? DateTime.now())}",
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                        ),
+                                        Divider(
+                                          color: const Color.fromARGB(
+                                              87, 158, 158, 158),
+                                          thickness: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 },
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        'Kegiatan Kerja Bakti',
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      subtitle: Text(
-                                        'Minggu, 19 November 2023',
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    ),
-                                    Divider(
-                                      color: const Color.fromARGB(
-                                          87, 158, 158, 158),
-                                      thickness: 1.0,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    }),
                   ),
                 ],
               ),
@@ -202,7 +252,7 @@ class FinanceView extends GetView<FinanceController> {
               ),
               TextFormField(
                 readOnly: true,
-                decoration: InputDecoration(labelText: 'Pengeluaran'),
+                decoration: InputDecoration(labelText: 'Jumlah'),
               ),
               TextFormField(
                 readOnly: true,

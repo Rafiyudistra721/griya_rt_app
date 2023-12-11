@@ -1,18 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/data/Models/finance_model.dart';
 import 'package:griya_rt_app/app/modules/finance/views/finance_view.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
+import '../../finance/controllers/finance_controller.dart';
 
-import '../controllers/tran_form_controller.dart';
-
-class TranFormView extends GetView<TranFormController> {
+class TranFormView extends GetView<FinanceController> {
   GlobalKey<FormState> _form = GlobalKey();
-  TransactionModel invenModel = Get.arguments ?? TransactionModel();
+  TransactionModel transactionModel = Get.arguments ?? TransactionModel();
   @override
   Widget build(BuildContext context) {
+    controller.modelToController(transactionModel);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF161960),
@@ -25,12 +28,11 @@ class TranFormView extends GetView<TranFormController> {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
-        child: Obx(
-          () => Form(
-            key: _form,
-            child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
+          child: Obx(
+            () => Column(
               children: [
                 Container(
                   width: double.infinity,
@@ -51,12 +53,31 @@ class TranFormView extends GetView<TranFormController> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/images/finance.png'),
+                      (controller.path.value.isNotEmpty)
+                          ? Image.file(
+                              File(controller.path.value),
+                              width: 274,
+                              height: 150,
+                            )
+                          : !transactionModel.images.isEmptyOrNull
+                              ? Image.network(
+                                  transactionModel.images!,
+                                  width: 274,
+                                  height: 150,
+                                )
+                              : Image.asset(
+                                  'assets/images/finance.png',
+                                  width: 274,
+                                  height: 150,
+                                ),
                       SizedBox(height: 16),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFF161960)),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await controller.selectImage(ImageSource.gallery);
+                          Get.back();
+                        },
                         child: Text('Upload', style: TextStyle(color: white)),
                       ),
                     ],
@@ -80,9 +101,15 @@ class TranFormView extends GetView<TranFormController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      TextField(
+                      TextFormField(
                         controller: controller.kegiatanC,
                         decoration: InputDecoration(labelText: 'Kegiatan'),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'This field is required';
+                          }
+                          return null;
+                        },
                       ),
                       DropdownButtonFormField<String>(
                         value: controller.typeSelected,
@@ -96,19 +123,38 @@ class TranFormView extends GetView<TranFormController> {
                           controller.setTipe(newValue);
                         },
                         decoration: InputDecoration(labelText: 'Tipe'),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'This field is required';
+                          }
+                          return null;
+                        },
                       ),
-                      TextField(
+                      TextFormField(
                         controller: controller.jumlahC,
-                        decoration: InputDecoration(labelText: 'Pengeluaran'),
+                        decoration: InputDecoration(labelText: 'Jumlah'),
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
                         ],
+                        validator: (value) {
+                          if (value == null) {
+                            return 'This field is required';
+                          }
+                          return null;
+                        },
                       ),
-                      TextField(
+                      TextFormField(
                         controller: controller.tanggalC,
                         decoration: InputDecoration(labelText: 'Tanggal'),
                         onTap: () async {
                           controller.selectDate(context);
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'This field is required';
+                          }
+
+                          return null;
                         },
                       ),
                     ],
@@ -123,7 +169,13 @@ class TranFormView extends GetView<TranFormController> {
                         backgroundColor: Color(0xFF161960),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_form.currentState!.validate()) {
+                        controller.store(transactionModel);
+                      } else {
+                        Get.snackbar('Error', 'Data masih kosong');
+                      }
+                    },
                     child: Text('Submit',
                         style: TextStyle(color: white, fontSize: 16)),
                   ),
