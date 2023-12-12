@@ -23,6 +23,7 @@ class EditprofileView extends GetView<EditprofileController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.modelToController(UserModel());
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -112,7 +113,7 @@ class EditprofileView extends GetView<EditprofileController> {
                     onPressed: () async {
                       if (form.currentState!.validate()) {
                         // Panggil fungsi updateProfileData jika validasi sukses
-                        await controller.updateProfileData;
+                        await controller.isSaving;
                       }
                     },
                     style: ElevatedButton.styleFrom(

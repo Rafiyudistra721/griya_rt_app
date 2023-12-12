@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:griya_rt_app/app/data/Models/user_model.dart';
+import 'package:griya_rt_app/app/data/Models/user_model.dart';
 import 'package:intl/intl.dart';
 import '../../../routes/app_pages.dart';
 // import '../../editprofile/controllers/editprofile_controller.dart';
+import '../../home/views/home_view.dart';
 import '../../login/controllers/login_controller.dart';
 import '../controllers/profile_controller.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,7 +15,7 @@ class ProfileView extends GetView<ProfileController> {
   // final EditprofileController editProfileController =
   //     Get.put(EditprofileController());
   final authC = Get.find<LoginController>();
-  // UserModel user = Get.arguments ?? UserModel();
+  UserModel user = Get.arguments ?? UserModel();
 
   ProfileView({Key? key}) : super(key: key);
   File? image;
@@ -23,6 +24,13 @@ class ProfileView extends GetView<ProfileController> {
     final XFile? imagePicked =
         await _picker.pickImage(source: ImageSource.gallery);
     image = File(imagePicked!.path);
+  }
+
+  void _onItemTapped(int index) {
+    // TODO: Implement your logic here
+    if (index == 0) {
+      Get.to(() => HomeView());
+    }
   }
 
   @override
@@ -93,7 +101,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     SizedBox(width: 60),
                     Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: EdgeInsets.only(right: 300),
                       child: IconButton(
                         icon: Icon(
                           Icons.edit,
@@ -106,9 +114,7 @@ class ProfileView extends GetView<ProfileController> {
                           //     controller.update();
                           //   }
                           // });
-                          Get.toNamed(
-                            Routes.EDITPROFILE,
-                          );
+                          Get.toNamed(Routes.EDITPROFILE, arguments: user);
                         },
                       ),
                     ),
@@ -262,24 +268,47 @@ class ProfileView extends GetView<ProfileController> {
           ],
         ),
       ),
-      bottomNavigationBar: ConvexAppBar(
-        backgroundColor: Colors.white,
-        style: TabStyle.reactCircle,
-        color: Color(0xFF161960),
-        activeColor: Color(0xFF161960),
-        items: [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.person, title: 'Profile'),
-        ],
-        onTap: (index) {
-          if (index == 0) {
-            // Get.toNamed(Routes.HOME);
-          } else if (index == 1) {
-            Get.toNamed(Routes.PROFILE);
-          }
-        },
-        initialActiveIndex: 1,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: CustomPaint(
+          size: Size(MediaQuery.of(context).size.width, 50),
+          // painter: BNBCustomPainter(),
+          child: Container(
+            color: Colors.white,
+            height: 100,
+            width: 300,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.home, size: 30),
+                  color: Color.fromARGB(255, 106, 104, 104),
+                  onPressed: () => _onItemTapped(0),
+                ),
+                IconButton(
+                  icon: Icon(Icons.person, size: 30),
+                  color: Color(0xFF161960),
+                  onPressed: () => _onItemTapped(1),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
+  }
+}
+
+class BNBCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()..color = Colors.white;
+    canvas.drawCircle(Offset((size.width / 2), size.height), 25, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }
