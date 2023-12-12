@@ -115,117 +115,91 @@ class FinanceView extends GetView<FinanceController> {
                         ),
                       ],
                     ),
-                    child: Obx(() {
-                      if (controller.finance.length < 1) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Transaksi',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Row(
                                 children: [
-                                  Text(
-                                    'Transaksi',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          Get.toNamed(Routes.TRAN_FORM);
-                                        },
-                                        icon: Icon(
-                                            Icons.add_circle_outline_rounded,
-                                            color: Color(0XFF161960)),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                                child: Center(
-                              child: Text(
-                                'Belum ada transaksi',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ))
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Transaksi',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          Get.toNamed(Routes.TRAN_FORM);
-                                        },
-                                        icon: Icon(
-                                            Icons.add_circle_outline_rounded,
-                                            color: Color(0XFF161960)),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: ScrollPhysics(),
-                                itemCount: controller.finance.length,
-                                itemBuilder: (context, index) {
-                                  TransactionModel time =
-                                      controller.finance[index];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      listDialog(context);
+                                  IconButton(
+                                    onPressed: () {
+                                      Get.toNamed(Routes.TRAN_FORM);
                                     },
-                                    child: Column(
-                                      children: [
-                                        ListTile(
-                                          title: Text(
-                                            controller
-                                                    .finance[index].activity ??
-                                                'Kegiatan',
-                                            style: TextStyle(fontSize: 18),
-                                          ),
-                                          subtitle: Text(
-                                            "${DateFormat.yMMMEd().format(time.date ?? DateTime.now())}",
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: const Color.fromARGB(
-                                              87, 158, 158, 158),
-                                          thickness: 1.0,
-                                        ),
-                                      ],
+                                    icon: Icon(Icons.add_circle_outline_rounded,
+                                        color: Color(0XFF161960)),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Obx(
+                          () => controller.finance.length < 1
+                              ? Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      'Belum ada transaksi',
+                                      style: TextStyle(fontSize: 16),
                                     ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-                    }),
+                                  ),
+                                )
+                              : Expanded(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: ScrollPhysics(),
+                                    itemCount: controller.finance.length,
+                                    itemBuilder: (context, index) {
+                                      TransactionModel time =
+                                          controller.finance[index];
+                                      TransactionModel? transaction = controller
+                                          .finance
+                                          .firstWhereOrNull((element) =>
+                                              element.id ==
+                                              controller.finance[index].id);
+                                      return Obx(
+                                        () => GestureDetector(
+                                          onTap: () {
+                                            listDialog(context);
+                                          },
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text(
+                                                  transaction?.activity ??
+                                                      'Kegiatan',
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                ),
+                                                subtitle: Text(
+                                                  "${DateFormat.yMMMEd().format(time.date!)}",
+                                                  style:
+                                                      TextStyle(fontSize: 15),
+                                                ),
+                                              ),
+                                              Divider(
+                                                color: const Color.fromARGB(
+                                                    87, 158, 158, 158),
+                                                thickness: 1.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -235,43 +209,44 @@ class FinanceView extends GetView<FinanceController> {
       ),
     );
   }
+}
 
-  void listDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(child: Text('Detail Transaksi')),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                readOnly: true,
-                decoration: InputDecoration(labelText: 'Kegiatan'),
-              ),
-              TextFormField(
-                readOnly: true,
-                decoration: InputDecoration(labelText: 'Jumlah'),
-              ),
-              TextFormField(
-                readOnly: true,
-                decoration: InputDecoration(labelText: 'Tanggal'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Close', style: TextStyle(color: Color(0XFF161960))),
+void listDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Center(child: Text('Detail Transaksi')),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              readOnly: true,
+              decoration: InputDecoration(labelText: 'Kegiatan'),
+            ),
+            TextFormField(
+              readOnly: true,
+              decoration: InputDecoration(labelText: 'Jumlah'),
+            ),
+            TextFormField(
+              readOnly: true,
+              decoration: InputDecoration(labelText: 'Tanggal'),
             ),
           ],
-        );
-      },
-    );
-  }
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: Text('Close', style: TextStyle(color: Color(0XFF161960))),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   // void TransactionDialog(BuildContext context) {
   //   showDialog(
@@ -337,4 +312,4 @@ class FinanceView extends GetView<FinanceController> {
   //     },
   //   );
   // }
-}
+

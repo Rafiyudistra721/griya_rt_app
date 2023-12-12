@@ -98,66 +98,70 @@ class TranFormView extends GetView<FinanceController> {
                       ),
                     ],
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TextFormField(
-                        controller: controller.kegiatanC,
-                        decoration: InputDecoration(labelText: 'Kegiatan'),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                      ),
-                      DropdownButtonFormField<String>(
-                        value: controller.typeSelected,
-                        items: ['Pemasukan', 'Pengeluaran'].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          controller.setTipe(newValue);
-                        },
-                        decoration: InputDecoration(labelText: 'Tipe'),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: controller.jumlahC,
-                        decoration: InputDecoration(labelText: 'Jumlah'),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        validator: (value) {
-                          if (value == null) {
-                            return 'This field is required';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: controller.tanggalC,
-                        decoration: InputDecoration(labelText: 'Tanggal'),
-                        onTap: () async {
-                          controller.selectDate(context);
-                        },
-                        validator: (value) {
-                          if (value == null) {
-                            return 'This field is required';
-                          }
+                  child: Form(
+                    key: _form,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextFormField(
+                          controller: controller.kegiatanC,
+                          decoration: InputDecoration(labelText: 'Kegiatan'),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        DropdownButtonFormField<String>(
+                          value: controller.typeSelected,
+                          items:
+                              ['Pemasukan', 'Pengeluaran'].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            controller.setTipe(newValue);
+                          },
+                          decoration: InputDecoration(labelText: 'Tipe'),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: controller.jumlahC,
+                          decoration: InputDecoration(labelText: 'Jumlah'),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          validator: (value) {
+                            if (value == null) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: controller.tanggalC,
+                          decoration: InputDecoration(labelText: 'Tanggal'),
+                          onTap: () async {
+                            controller.selectDate(context);
+                          },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'This field is required';
+                            }
 
-                          return null;
-                        },
-                      ),
-                    ],
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 50),
@@ -170,7 +174,7 @@ class TranFormView extends GetView<FinanceController> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
                     onPressed: () {
-                      if (_form.currentState!.validate()) {
+                      if (_form.currentState!.validate() == true) {
                         controller.store(transactionModel);
                       } else {
                         Get.snackbar('Error', 'Data masih kosong');

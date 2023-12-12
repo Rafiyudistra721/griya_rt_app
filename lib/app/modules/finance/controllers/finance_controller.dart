@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/data/Models/finance_model.dart';
@@ -6,6 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FinanceController extends GetxController {
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   TextEditingController kegiatanC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
   TextEditingController tanggalC = TextEditingController();
@@ -26,6 +28,7 @@ class FinanceController extends GetxController {
     jumlahC.text = transactionModel.amount?.toString() ?? '';
     tanggalC.text = transactionModel.date?.toString() ?? '';
     typeSelected = transactionModel.type;
+    path.value = transactionModel.images ?? '';
   }
 
   var _isSaving = false.obs;
@@ -53,7 +56,7 @@ class FinanceController extends GetxController {
     typeSelected = newValue;
   }
 
-  Future store(TransactionModel transactionModel) async {
+  Future store(TransactionModel transactionModel, {String? path}) async {
     isSaving = true;
     transactionModel.activity = kegiatanC.text;
     transactionModel.amount = int.tryParse(jumlahC.text);
@@ -66,7 +69,7 @@ class FinanceController extends GetxController {
 
     try {
       await transactionModel.save();
-      toast("Aset Telah Ditambahkan");
+      toast("Transaksi Telah Ditambahkan");
       print("Success");
       Get.back();
     } catch (e) {
