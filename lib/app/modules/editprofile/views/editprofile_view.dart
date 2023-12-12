@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import '../../../data/Models/user_model.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/editprofile_controller.dart';
@@ -56,10 +57,13 @@ class EditprofileView extends GetView<EditprofileController> {
                 children: [
                   TextFormField(
                     controller: controller.nameC,
-                    decoration: InputDecoration(labelText: 'Nama'),
+                    decoration: InputDecoration(
+                      labelText: 'Nama',
+                      prefixIcon: Icon(Icons.person),
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Nama tidak boleh kosong';
+                        return 'Nama wajib diisi';
                       }
                       return null;
                     },
@@ -67,10 +71,11 @@ class EditprofileView extends GetView<EditprofileController> {
                   SizedBox(height: 16),
                   TextFormField(
                     controller: controller.emailC,
-                    decoration: InputDecoration(labelText: 'Email'),
+                    decoration: InputDecoration(
+                        labelText: 'Email', prefixIcon: Icon(Icons.email)),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Email tidak boleh kosong';
+                        return 'Email wajib disi';
                       }
                       // Tambahkan validasi email jika diperlukan
                       return null;
@@ -78,10 +83,27 @@ class EditprofileView extends GetView<EditprofileController> {
                   ),
                   TextFormField(
                     controller: controller.birthDateC,
-                    decoration: InputDecoration(labelText: 'Tanggal Lahir'),
+                    decoration: InputDecoration(
+                        labelText: 'Tanggal Lahir',
+                        prefixIcon: Icon(Icons.calendar_today)),
+                    onTap: () async {
+                      DateTime? selectedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+
+                      if (selectedDate != null) {
+                        // Format tanggal yang dipilih sesuai kebutuhan
+                        String formattedDate =
+                            DateFormat("EEE, dd MMM y").format(selectedDate);
+                        controller.birthDateC.text = formattedDate;
+                      }
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Tanggal lahir tidak boleh kosong';
+                        return 'Tanggal lahir wajib diisi';
                       }
                       return null;
                     },
@@ -89,10 +111,11 @@ class EditprofileView extends GetView<EditprofileController> {
                   SizedBox(height: 16),
                   TextFormField(
                     controller: controller.tlpC,
-                    decoration: InputDecoration(labelText: 'No.Telp'),
+                    decoration: InputDecoration(
+                        labelText: 'No.Telp', prefixIcon: Icon(Icons.phone)),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Nomer telephone tidak boleh kosong';
+                        return 'Nomer telephone wajib diisi';
                       }
                       return null;
                     },
@@ -100,10 +123,12 @@ class EditprofileView extends GetView<EditprofileController> {
                   SizedBox(height: 16),
                   TextFormField(
                     controller: controller.adressC,
-                    decoration: InputDecoration(labelText: 'Alamat'),
+                    decoration: InputDecoration(
+                        labelText: 'Alamat',
+                        prefixIcon: Icon(Icons.location_on)),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Alamat tidak boleh kosong';
+                        return 'Alamat wajib diisi';
                       }
                       return null;
                     },

@@ -270,30 +270,22 @@ class ProfileView extends GetView<ProfileController> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: CustomPaint(
-          size: Size(MediaQuery.of(context).size.width, 50),
-          // painter: BNBCustomPainter(),
-          child: Container(
-            color: Colors.white,
-            height: 100,
-            width: 300,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.home, size: 30),
-                  color: Color.fromARGB(255, 106, 104, 104),
-                  onPressed: () => _onItemTapped(0),
-                ),
-                IconButton(
-                  icon: Icon(Icons.person, size: 30),
-                  color: Color(0xFF161960),
-                  onPressed: () => _onItemTapped(1),
-                ),
-              ],
+        color: Colors.white, // Mengatur warna background menjadi putih
+        elevation: 0.0, // Menghilangkan shadow/elevation
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home, size: 30),
+              color: Color.fromARGB(255, 106, 104, 104),
+              onPressed: () => _onItemTapped(0),
             ),
-          ),
+            IconButton(
+              icon: Icon(Icons.person, size: 30),
+              color: Color(0xFF161960),
+              onPressed: () => _onItemTapped(1),
+            ),
+          ],
         ),
       ),
     );
