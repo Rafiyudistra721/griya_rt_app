@@ -5,6 +5,7 @@ import 'package:griya_rt_app/app/data/Models/user_model.dart';
 import 'package:griya_rt_app/app/integrations/firestore.dart';
 import 'package:griya_rt_app/app/routes/app_pages.dart';
 import 'package:griya_rt_app/app/utils/colors.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class LoginController extends GetxController {
@@ -219,11 +220,14 @@ class LoginController extends GetxController {
     }
   }
 
-    modelToController(UserModel userModel) {
+  modelToController(UserModel userModel) {
     nameC.text = userModel.username ?? '';
-    nameC.text = userModel.username ?? '';
+    emailC.text = userModel.email ?? '';
     tlpC.text = userModel.telephone?.toString() ?? '';
     adressC.text = userModel.adress ?? '';
+    birthDateC.text = userModel.birthDate is DateTime
+        ? DateFormat("EEE, dd MMM y").format(userModel.birthDate!)
+        : "--";
   }
 
   Future store(UserModel userModel) async {
@@ -273,7 +277,7 @@ class LoginController extends GetxController {
   }
 
   @override
-  void onClose() {    
+  void onClose() {
     emailC.clear();
     passC.clear();
     passC2.clear();
