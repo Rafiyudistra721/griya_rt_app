@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
+// import 'package:griya_rt_app/app/data/Models/info_model.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
   final count = 0.obs;
   @override
   void onInit() {

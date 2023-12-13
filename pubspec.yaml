@@ -41,4 +41,5 @@ flutter:
     - assets/icons/info.png
     - assets/icons/inventaris.png
     - assets/icons/keuangan.png
+    - assets/icons/warga.png
   uses-material-design: true

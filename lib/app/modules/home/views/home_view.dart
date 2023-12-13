@@ -8,9 +8,8 @@ class HomeView extends GetView<HomeController> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
 
   void _onItemTapped(int index) {
-    // TODO: Implement your logic here
     if (index == 1) {
-      // Get.to(() => ProfileView());
+      Get.to(() => ProfileView());
     }
   }
 
@@ -39,7 +38,7 @@ class HomeView extends GetView<HomeController> {
                   child: Column(
                     children: [
                       Image.asset(
-                        'image/logo1.png',
+                        'assets/icons/logo_home.png',
                         width: 150,
                         height: 150,
                       ),
@@ -95,55 +94,82 @@ class HomeView extends GetView<HomeController> {
               Positioned(
                 top: 447,
                 left: 15,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'image/info.png',
-                      width: 35,
-                      height: 35,
-                    ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Informasi',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => InformasiView());
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/icons/info.png',
+                        width: 35,
+                        height: 35,
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 10),
+                      const Text(
+                        'Informasi',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFF161960),
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              // Container(
-              //   padding: EdgeInsets.symmetric(horizontal: 10),
-              //   height: 260,
-              //   child: Obx(
-              //     () => controller.books.length < 1
-              //         ? Center(
-              //             child: Column(
-              //               mainAxisAlignment: MainAxisAlignment.center,
-              //               children: [
-              //                 Text(
-              //                   "No Information",
-              //                   style: TextStyle(color: Colors.white),
-              //                 ),
-              //               ],
-              //             ),
-              //           )
-              //         : SingleChildScrollView(
-              //             scrollDirection: Axis.vertical,
-              //             child: ListView.builder(
-              //               shrinkWrap: true,
-              //               scrollDirection: Axis.vertical,
-              //               itemCount: controller.books.length,
-              //               physics: ScrollPhysics(),
-              //               itemBuilder: (context, index) => BookCard(
-              //                 book: controller.books[index],
-              //               ),
-              //             ),
-              //           ),
-              //   ),
-              // ),
+              Positioned(
+                top: 490,
+                child: Obx(
+                  () => controller.informasi.length < 1
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Tidak Ada Informasi",
+                                style: TextStyle(color: Color(0xFF161960)),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Container(
+                            height: 290,
+                            width: 380,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: ListView.builder(
+                              itemCount: max(2, 3),
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(bottom: 8.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: ListTile(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 20.0),
+                                    leading:
+                                        Image.asset('image/image.info.png'),
+                                    title: Text('Kegiatan 17 Agustus'),
+                                    subtitle: Text(
+                                      'Kegiatan 17 Agustus yang diselenggarakan oleh warga',
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                ),
+              ),
               Positioned(
                 top: 275,
                 child: Padding(
@@ -160,7 +186,7 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              right: 7.0, left: 7.0, top: 5),
+                              right: 7.0, left: 7.0, top: 12.0),
                           child: Row(
                             children: [
                               Padding(
@@ -194,15 +220,14 @@ class HomeView extends GetView<HomeController> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  // Navigate to the corresponding page
-                                  // Use Get.to(() => YourPage()) for navigation using GetX library
+                                  Get.to(() => InvenView());
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 25),
                                   child: Column(
                                     children: [
                                       Image.asset(
-                                        'image/inventaris.png',
+                                        'assets/icons/inventaris.png',
                                         width: 45,
                                         height: 45,
                                       ),
@@ -221,13 +246,12 @@ class HomeView extends GetView<HomeController> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  // Navigate to the corresponding page
-                                  // Use Get.to(() => YourPage()) for navigation using GetX library
+                                  Get.to(() => WargaView());
                                 },
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      'image/warga.png',
+                                      'assets/icons/info.png',
                                       width: 45,
                                       height: 45,
                                     ),
@@ -245,14 +269,14 @@ class HomeView extends GetView<HomeController> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => KeuanganView());
+                                  Get.to(() => FinanceView());
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 25),
                                   child: Column(
                                     children: [
                                       Image.asset(
-                                        'image/keuangan.png',
+                                        'assets/icons/keuangan.png',
                                         width: 45,
                                         height: 45,
                                       ),
@@ -281,133 +305,28 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: CustomPaint(
-          size: Size(MediaQuery.of(context).size.width, 50),
-          // painter: BNBCustomPainter(),
-          child: Container(
-            height: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.home, size: 30),
-                  color: Color(0xFF161960),
-                  onPressed: () => _onItemTapped(0),
-                ),
-                IconButton(
-                  icon: Icon(Icons.person, size: 30),
-                  color: Color.fromARGB(255, 106, 104, 104),
-                  onPressed: () => _onItemTapped(1),
-                ),
-              ],
+        color: Colors.white,
+        elevation: 0.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home, size: 30),
+              color: Color(0xFF161960),
+              onPressed: () => _onItemTapped(0),
             ),
-          ),
+            IconButton(
+              icon: Icon(Icons.person, size: 30),
+              color: Color.fromARGB(255, 106, 104, 104),
+              onPressed: () => _onItemTapped(1),
+            ),
+          ],
         ),
       ),
     );
   }
 }
-
-// class BookCard extends GetView<HomeController> {
-//   BookCard({required this.book});
-//   Book book;
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       onTap: () {},
-//       child: Container(
-//         padding: EdgeInsets.all(10),
-//         width: 160,
-//         height: 260,
-//         margin: EdgeInsets.all(10),
-//         child: SingleChildScrollView(
-//           child: Column(
-//             mainAxisSize: MainAxisSize.max,
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               book.image != null
-//                   ? Container(
-//                       height: 80,
-//                       width: 150,
-//                       decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(10),
-//                           image: DecorationImage(
-//                               image: NetworkImage(book.image!),
-//                               fit: BoxFit.cover)),
-//                     )
-//                   : Container(
-//                       height: 80,
-//                       width: 150,
-//                       decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(10),
-//                           image: DecorationImage(
-//                               image: AssetImage("assets/default.png"),
-//                               fit: BoxFit.fitHeight)),
-//                     ),
-//               SizedBox(
-//                 height: 15,
-//               ),
-//               SingleChildScrollView(
-//                 scrollDirection: Axis.horizontal,
-//                 child: Text(
-//                   book.title!,
-//                   style: TextStyle(color: Colors.blue, fontSize: 18),
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: 5,
-//               ),
-//               SingleChildScrollView(
-//                 scrollDirection: Axis.vertical,
-//                 child: Text(
-//                   book.category!,
-//                   style: TextStyle(color: Colors.blue, fontSize: 15),
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: 5,
-//               ),
-//               SingleChildScrollView(
-//                 scrollDirection: Axis.horizontal,
-//                 child: Text(
-//                   "${book.page} pages",
-//                   style: TextStyle(color: Colors.blue, fontSize: 15),
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: 5,
-//               ),
-//               Text(
-//                 NumberFormat.percentPattern('id')
-//                     .format((book.readpage ?? 0) / (book.page ?? 0)),
-//                 style: TextStyle(color: Colors.blue),
-//               ),
-//               SizedBox(
-//                 height: 5,
-//               ),
-//               ClipRRect(
-//                 borderRadius: BorderRadius.circular(16),
-//                 child: LinearProgressIndicator(
-//                   color: Colors.blue,
-//                   value: (book.readpage ?? 0) / (book.page ?? 0),
-//                   minHeight: 10,
-//                   backgroundColor: Colors.grey[400],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(10),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 void main() {
   runApp(MaterialApp(
