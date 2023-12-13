@@ -36,7 +36,14 @@ class HomeView extends GetView<HomeController> {
           onPressed: () {
             Get.toNamed(Routes.INVEN);
           }, 
-          icon: const Icon(Icons.add)))
+          icon: const Icon(Icons.add))),
+          Center(
+            child: IconButton(
+              onPressed: () {
+                Get.toNamed(Routes.FINANCE);
+              }, 
+              icon: const Icon(Icons.monetization_on)),
+          ),
         ],
       ),
     );

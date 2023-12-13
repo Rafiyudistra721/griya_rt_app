@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, prefer_final_fields, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +28,9 @@ class FinanceController extends GetxController {
   modelToController(TransactionModel transactionModel) {
     kegiatanC.text = transactionModel.activity ?? '';
     jumlahC.text = transactionModel.amount?.toString() ?? '';
-    tanggalC.text = transactionModel.date?.toString() ?? '';
+    tanggalC.text = transactionModel.date is DateTime
+            ? DateFormat("EEEE, dd MMMM y").format(transactionModel.date!)
+            : "";
     typeSelected = transactionModel.type;
     path.value = transactionModel.images ?? '';
   }

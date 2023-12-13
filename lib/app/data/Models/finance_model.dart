@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:griya_rt_app/app/data/database.dart';
 import 'package:griya_rt_app/app/integrations/firestore.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class TransactionModel {
   String? id;
@@ -65,7 +62,7 @@ class TransactionModel {
   Stream<List<TransactionModel>> streamList() async* {
     yield* firebaseFirestore
         .collectionGroup(financeCollection)
-        .orderBy("time", descending: true)
+        .orderBy("date", descending: true)
         .snapshots()
         .map((query) {
       List<TransactionModel> list = [];
@@ -82,7 +79,7 @@ class TransactionModel {
 
   Stream<List<TransactionModel>> streamListFromBook() async* {
     yield* db.collectionReference
-        .orderBy("time", descending: true)
+        .orderBy("date", descending: true)
         .snapshots()
         .map((query) {
       List<TransactionModel> list = [];
