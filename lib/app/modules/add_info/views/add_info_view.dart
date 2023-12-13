@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:griya_rt_app/app/routes/app_pages.dart';
 import 'package:griya_rt_app/app/utils/colors.dart';
 
 import '../controllers/add_info_controller.dart';
@@ -36,7 +35,8 @@ class AddInfoView extends GetView<AddInfoController> {
               height: 30,
             ),
             ElevatedButton(
-              onPressed: () => Get.toNamed(Routes.ADD_INFO),
+              onPressed: () => controller.addInfo(
+                  controller.JudulC.text, controller.IsiC.text),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(350, 40),
                 backgroundColor: colorPrimary,

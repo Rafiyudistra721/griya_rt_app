@@ -36,5 +36,4 @@ flutter:
  assets: 
     - assets/icons/logo_home.png
     - assets/icons/logo_login.png
-  uses-material-design: true
-
+ uses-material-design: true

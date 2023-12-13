@@ -8,7 +8,7 @@ class AddInfoController extends GetxController {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  void add(String Judul, String Isi) async {
+  void addInfo(String Judul, String Isi) async {
     CollectionReference info = firestore.collection("info");
 
     try {
