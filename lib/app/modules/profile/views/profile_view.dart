@@ -1,21 +1,22 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:griya_rt_app/app/data/Models/user_model.dart';
+// import 'package:griya_rt_app/app/data/Models/user_model.dart';
+import 'package:griya_rt_app/app/utils/colors.dart';
 import 'package:intl/intl.dart';
 import '../../../routes/app_pages.dart';
 // import '../../editprofile/controllers/editprofile_controller.dart';
 import '../../home/views/home_view.dart';
 import '../../login/controllers/login_controller.dart';
-import '../controllers/profile_controller.dart';
+// import '../controllers/profile_controller.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+// import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
-class ProfileView extends GetView<ProfileController> {
+class ProfileView extends GetView<LoginController> {
   // final EditprofileController editProfileController =
   //     Get.put(EditprofileController());
-  final authC = Get.find<LoginController>();
-  UserModel user = Get.arguments ?? UserModel();
+  // final authC = Get.find<LoginController>();
+  // UserModel user = Get.arguments ?? UserModel();
 
   ProfileView({Key? key}) : super(key: key);
   File? image;
@@ -52,7 +53,7 @@ class ProfileView extends GetView<ProfileController> {
               children: [
                 Row(
                   children: [
-                    SizedBox(width: 20, height: 200),
+                    const SizedBox(width: 20, height: 200),
                     Stack(
                       children: [
                         image != null
@@ -60,9 +61,9 @@ class ProfileView extends GetView<ProfileController> {
                                 image!,
                                 fit: BoxFit.cover,
                               )
-                            : CircleAvatar(
+                            : const CircleAvatar(
                                 radius: 30,
-                                backgroundColor: Color(0xFF161960),
+                                backgroundColor: colorPrimary,
                                 // backgroundImage: AssetImage(''),
                               ),
                         Positioned(
@@ -72,10 +73,10 @@ class ProfileView extends GetView<ProfileController> {
                             radius: 15,
                             backgroundColor: Colors.white,
                             child: IconButton(
-                              padding: EdgeInsets.only(bottom: 2),
-                              icon: Icon(
+                              padding: const EdgeInsets.only(bottom: 2),
+                              icon: const Icon(
                                 Icons.camera_alt_outlined,
-                                color: Color(0xFF161960),
+                                color: colorPrimary,
                               ),
                               onPressed: () async {
                                 await getImage();
@@ -85,27 +86,27 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                       ],
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${authC.user.username}'.toUpperCase(),
-                          style: TextStyle(fontSize: 20),
+                          '${controller.user.username}'.toUpperCase(),
+                          style: const TextStyle(fontSize: 18),
                         ),
                         Text(
-                          '${authC.user.email}',
-                          style: TextStyle(fontSize: 20),
+                          '${controller.user.email}',
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
-                    SizedBox(width: 60),
+                    const SizedBox(width: 10),
                     Padding(
-                      padding: EdgeInsets.only(right: 300),
+                      padding: const EdgeInsets.only(right: 30),
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.edit,
-                          color: Color(0xFF161960),
+                          color: colorPrimary,
                         ),
                         onPressed: () {
                           // Get.toNamed(Routes.EDITPROFILE, arguments: user);
@@ -114,13 +115,13 @@ class ProfileView extends GetView<ProfileController> {
                           //     controller.update();
                           //   }
                           // });
-                          Get.toNamed(Routes.EDITPROFILE, arguments: user);
+                          Get.toNamed(Routes.EDITPROFILE, arguments: controller.user);
                         },
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Column(
                   children: [
                     Padding(
@@ -131,134 +132,134 @@ class ProfileView extends GetView<ProfileController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.person,
-                                color: Color(0xFF161960),
+                                color: colorPrimary,
                                 size: 40,
                               ),
-                              SizedBox(width: 23),
+                              const SizedBox(width: 23),
                               Text(
-                                '${authC.user.username}',
-                                style: TextStyle(fontSize: 18),
+                                '${controller.user.username}',
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Padding(
-                      padding: EdgeInsets.only(left: 30.0),
+                      padding: const EdgeInsets.only(left: 30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.email,
-                                color: Color(0xFF161960),
+                                color: colorPrimary,
                                 size: 40,
                               ),
-                              SizedBox(width: 23),
+                              const SizedBox(width: 23),
                               Text(
-                                '${authC.user.email}',
-                                style: TextStyle(fontSize: 18),
+                                '${controller.user.email}',
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Padding(
-                      padding: EdgeInsets.only(left: 33.0),
+                      padding: const EdgeInsets.only(left: 33.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.cake,
-                                color: Color(0xFF161960),
+                                color: colorPrimary,
                                 size: 40,
                               ),
-                              SizedBox(width: 23),
+                              const SizedBox(width: 23),
                               Text(
-                                authC.user.birthDate is DateTime
+                                controller.user.birthDate is DateTime
                                     ? DateFormat("EEE, dd MMM y")
-                                        .format(authC.selectedDate!)
+                                        .format(controller.user.birthDate!)
                                     : '--',
-                                style: TextStyle(fontSize: 18),
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Padding(
-                      padding: EdgeInsets.only(left: 30.0),
+                      padding: const EdgeInsets.only(left: 30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.phone_android,
-                                color: Color(0xFF161960),
+                                color: colorPrimary,
                                 size: 40,
                               ),
-                              SizedBox(width: 23),
+                              const SizedBox(width: 23),
                               Text(
-                                '${authC.user.telephone}',
-                                style: TextStyle(fontSize: 18),
+                                '${controller.user.telephone}',
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Padding(
-                      padding: EdgeInsets.only(left: 30.0),
+                      padding: const EdgeInsets.only(left: 30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_pin,
-                                color: Color(0xFF161960),
+                                color: colorPrimary,
                                 size: 40,
                               ),
-                              SizedBox(width: 23),
+                              const SizedBox(width: 23),
                               Text(
-                                '${authC.user.adress}',
-                                style: TextStyle(fontSize: 18),
+                                '${controller.user.adress}',
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Padding(
-                      padding: EdgeInsets.only(left: 18.0),
+                      padding: const EdgeInsets.only(left: 18.0),
                       child: ListTile(
-                        leading: Icon(
+                        leading: const Icon(
                           Icons.logout,
-                          color: Color(0xFF161960),
+                          color: colorPrimary,
                           size: 40,
                         ),
-                        title: Text(
+                        title: const Text(
                           'Logout',
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 16),
                         ),
-                        onTap: () => authC.logout(),
+                        onTap: () => controller.logout(),
                       ),
                     ),
                   ],
@@ -270,7 +271,7 @@ class ProfileView extends GetView<ProfileController> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: CustomPaint(
           size: Size(MediaQuery.of(context).size.width, 50),
           // painter: BNBCustomPainter(),
@@ -282,13 +283,13 @@ class ProfileView extends GetView<ProfileController> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.home, size: 30),
-                  color: Color.fromARGB(255, 106, 104, 104),
+                  icon: const Icon(Icons.home, size: 30),
+                  color: const Color.fromARGB(255, 106, 104, 104),
                   onPressed: () => _onItemTapped(0),
                 ),
                 IconButton(
-                  icon: Icon(Icons.person, size: 30),
-                  color: Color(0xFF161960),
+                  icon: const Icon(Icons.person, size: 30),
+                  color: colorPrimary,
                   onPressed: () => _onItemTapped(1),
                 ),
               ],

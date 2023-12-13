@@ -60,38 +60,7 @@ class EditprofileController extends GetxController {
   //     Get.snackbar('Error', 'Failed to update profile');
   //   }
   // }
-  modelToController(UserModel userModel) {
-    nameC.text = userModel.username ?? '';
-    nameC.text = userModel.username ?? '';
-    tlpC.text = userModel.telephone?.toString() ?? '';
-    adressC.text = userModel.adress ?? '';
-  }
 
-  var _isSaving = false.obs;
-  bool get isSaving => _isSaving.value;
-  set isSaving(bool value) => _isSaving.value = value;
-
-  Future store(UserModel userModel) async {
-    isSaving = true;
-    userModel.username = nameC.text;
-    userModel.email = emailC.text;
-    userModel.telephone = int.tryParse(tlpC.text);
-    userModel.adress = adressC.text;
-    if (userModel.id.isEmptyOrNull) {
-      userModel.time = DateTime.now();
-    }
-
-    try {
-      await userModel.save();
-      toast("Daftar Aset Telah Diperbarui");
-      print("Success");
-      Get.back();
-    } catch (e) {
-      print(e);
-    } finally {
-      isSaving = false;
-    }
-  }
 
   RxList<UserModel> rxUser = RxList<UserModel>();
   List<UserModel> get listUser => rxUser.value;

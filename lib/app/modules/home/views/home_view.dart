@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/modules/login/controllers/login_controller.dart';
+import 'package:griya_rt_app/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -17,12 +18,21 @@ class HomeView extends GetView<HomeController> {
       body: Center(
         child: Align(
           alignment: Alignment.topRight,
-          child: IconButton(
-            onPressed: () => authC.logout(),
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.blue,
-            ),
+          child: Column(
+            children: [
+              IconButton(
+                onPressed: () => authC.logout(),
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.blue,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Get.toNamed(Routes.PROFILE);
+                }, 
+                icon: const Icon(Icons.person))
+            ],
           ),
         ),
       ),
