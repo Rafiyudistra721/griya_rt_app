@@ -2,10 +2,10 @@ name: griya_rt_app
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=3.2.0 <4.0.0'
+environment:
+  sdk: ">=3.2.0 <4.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
   get: 4.6.6
   firebase_core: 2.22.0
@@ -21,15 +21,15 @@ dependencies:
   flutter_inset_box_shadow: ^1.0.8
   image_picker: ^1.0.4
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
-  fonts: 
+flutter:
+  fonts:
     - family: Roboto
-      fonts: 
+      fonts:
         - asset: assets/fonts/Roboto-Regular.ttf
         - asset: assets/fonts/Roboto-Italic.ttf
           style: italic
@@ -37,12 +37,15 @@ flutter:
           weight: 700
         - asset: assets/fonts/Roboto-Medium.ttf
           weight: 500
-  assets: 
+  assets:
     - assets/icons/logo_home.png
     - assets/icons/logo_login.png
     - assets/icons/icon_note.png
     - assets/bgLR.png
     - assets/bgLR.jpg
     - assets/images/finance.png
+    - assets/icons/info.png
+    - assets/icons/inventaris.png
+    - assets/icons/keuangan.png
+    - assets/icons/warga.png
   uses-material-design: true
-
