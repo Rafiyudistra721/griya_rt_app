@@ -47,7 +47,7 @@ GetPage(
     ),
     GetPage(
       name: _Paths.TRAN_FORM,
-      page: () => const TranFormView(),
+      page: () => TranFormView(),
       binding: TranFormBinding(),
     ),
     GetPage(

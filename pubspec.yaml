@@ -19,6 +19,7 @@ dependencies:
   flutter: 
     sdk: flutter
   flutter_inset_box_shadow: ^1.0.8
+  image_picker: ^1.0.4
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

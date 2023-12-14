@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:griya_rt_app/app/routes/app_pages.dart';
+import 'package:griya_rt_app/app/widgets/tran_list.dart';
 import 'package:nb_utils/nb_utils.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart'
 //     hide BoxDecoration, BoxShadow;
@@ -11,7 +12,7 @@ class FinanceView extends GetView<FinanceController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF161960),
+        backgroundColor: const Color(0xFF161960),
         title: const Text('Halaman Keuangan',
             style: TextStyle(color: Colors.white, fontSize: 18)),
       ),
@@ -24,7 +25,7 @@ class FinanceView extends GetView<FinanceController> {
                 children: [
                   //KAS
                   Container(
-                    padding: EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: 16),
                     width: 300,
                     height: 250,
                     decoration: BoxDecoration(
@@ -35,7 +36,7 @@ class FinanceView extends GetView<FinanceController> {
                           color: Colors.black.withOpacity(0.2),
                           spreadRadius: 1,
                           blurRadius: 2,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
@@ -48,21 +49,21 @@ class FinanceView extends GetView<FinanceController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Kas Total',
                                 style: TextStyle(fontSize: 20),
                               ),
                               Row(
                                 children: [
                                   IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.info_outline,
                                       color: Color(0XFF161960),
                                     ),
                                     onPressed: () {},
                                   ),
                                   IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.print,
                                       color: Color(0XFF161960),
                                     ),
@@ -81,15 +82,15 @@ class FinanceView extends GetView<FinanceController> {
                             fit: BoxFit.contain,
                           ),
                         ),
-                        Divider(
-                          color: const Color.fromARGB(87, 158, 158, 158),
+                        const Divider(
+                          color: Color.fromARGB(87, 158, 158, 158),
                           thickness: 1.0,
                         ),
-                        Text(
+                        const Text(
                           'Saldo',
                           style: TextStyle(fontSize: 18),
                         ),
-                        Text(
+                        const Text(
                           'Rp 10.000,00',
                           style: TextStyle(fontSize: 18),
                         ),
@@ -97,7 +98,7 @@ class FinanceView extends GetView<FinanceController> {
                     ),
                   ),
                   //TRANSAKSI
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Container(
                     width: 300,
                     height: 300,
@@ -109,7 +110,7 @@ class FinanceView extends GetView<FinanceController> {
                           color: Colors.black.withOpacity(0.2),
                           spreadRadius: 1,
                           blurRadius: 2,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
@@ -122,7 +123,7 @@ class FinanceView extends GetView<FinanceController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Transaksi',
                                 style: TextStyle(fontSize: 20),
                               ),
@@ -131,9 +132,9 @@ class FinanceView extends GetView<FinanceController> {
                                   IconButton(
                                     onPressed: () {
                                       Get.toNamed(Routes.TRAN_FORM);
-                                      // TransactionDialog(context);
                                     },
-                                    icon: Icon(Icons.add_circle_outline_rounded,
+                                    icon: const Icon(
+                                        Icons.add_circle_outline_rounded,
                                         color: Color(0XFF161960)),
                                   ),
                                 ],
@@ -141,39 +142,31 @@ class FinanceView extends GetView<FinanceController> {
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: ScrollPhysics(),
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  listDialog(context);
-                                },
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        'Kegiatan Kerja Bakti',
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      subtitle: Text(
-                                        'Minggu, 19 November 2023',
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    ),
-                                    Divider(
-                                      color: const Color.fromARGB(
-                                          87, 158, 158, 158),
-                                      thickness: 1.0,
-                                    ),
-                                  ],
+                        Obx(() {
+                          if (controller.finance.isEmpty) {
+                            return const Expanded(
+                              child: Center(
+                                child: Text(
+                                  'Belum ada transaksi',
+                                  style: TextStyle(fontSize: 16),
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
+                            );
+                          } else {
+                            return Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ScrollPhysics(),
+                                itemCount: controller.finance.length,
+                                itemBuilder: (context, index) {
+                                  return TranList(
+                                    index: index, 
+                                    transactionModel: controller.finance[index]);
+                                },
+                              ),
+                            );
+                          }
+                        }),
                       ],
                     ),
                   ),
@@ -185,43 +178,8 @@ class FinanceView extends GetView<FinanceController> {
       ),
     );
   }
+}
 
-  void listDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(child: Text('Detail Transaksi')),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                readOnly: true,
-                decoration: InputDecoration(labelText: 'Kegiatan'),
-              ),
-              TextFormField(
-                readOnly: true,
-                decoration: InputDecoration(labelText: 'Pengeluaran'),
-              ),
-              TextFormField(
-                readOnly: true,
-                decoration: InputDecoration(labelText: 'Tanggal'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Close', style: TextStyle(color: Color(0XFF161960))),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   // void TransactionDialog(BuildContext context) {
   //   showDialog(
@@ -287,4 +245,4 @@ class FinanceView extends GetView<FinanceController> {
   //     },
   //   );
   // }
-}
+
