@@ -7,6 +7,7 @@ import 'package:griya_rt_app/app/data/Models/user_model.dart';
 import 'package:griya_rt_app/app/integrations/firestore.dart';
 import 'package:griya_rt_app/app/routes/app_pages.dart';
 import 'package:griya_rt_app/app/utils/colors.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class LoginController extends GetxController {
@@ -215,6 +216,38 @@ class LoginController extends GetxController {
           confirmTextColor: Colors.white,
           titleStyle: const TextStyle(color: colorPrimary),
           middleTextStyle: const TextStyle(color: colorPrimary));
+    }
+  }
+
+  modelToController(UserModel userModel) {
+    nameC.text = userModel.username ?? '';
+    emailC.text = userModel.email ?? '';
+    tlpC.text = userModel.telephone?.toString() ?? '';
+    adressC.text = userModel.adress ?? '';
+    birthDateC.text = userModel.birthDate is DateTime
+        ? DateFormat("EEE, dd MMM y").format(userModel.birthDate!)
+        : "--";
+  }
+
+  Future store(UserModel userModel) async {
+    isSaving = true;
+    userModel.username = nameC.text;
+    userModel.email = emailC.text;
+    userModel.telephone = int.tryParse(tlpC.text);
+    userModel.adress = adressC.text;
+    if (userModel.id.isEmptyOrNull) {
+      userModel.time = DateTime.now();
+    }
+
+    try {
+      await userModel.save();
+      toast("Daftar Aset Telah Diperbarui");
+      print("Success");
+      Get.back();
+    } catch (e) {
+      print(e);
+    } finally {
+      isSaving = false;
     }
   }
 

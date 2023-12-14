@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:griya_rt_app/app/data/database.dart';
 import 'package:griya_rt_app/app/integrations/firestore.dart';
 
-
 class UserModel {
   String? id;
   String? username;
@@ -18,7 +17,7 @@ class UserModel {
   DateTime? time;
   bool? isAdmin = false;
 
-  UserModel ({
+  UserModel({
     this.id,
     this.username,
     this.email,
@@ -46,6 +45,7 @@ class UserModel {
       isAdmin: json?['isAdmin']
     );
   }
+
   Map<String, dynamic> get toJson => {
     'id' : id,
     'username' : username,
@@ -59,11 +59,11 @@ class UserModel {
     'isAdmin' : isAdmin
   };
 
-  Database db =  Database(
-    collectionReference: firebaseFirestore.collection(
-      usersCollection,
-    ), 
-    storageReference: firebaseStorage.ref(usersCollection));
+  Database db = Database(
+      collectionReference: firebaseFirestore.collection(
+        usersCollection,
+      ),
+      storageReference: firebaseStorage.ref(usersCollection));
 
   Future<UserModel> save({File? file}) async {
     id == null ? id = await db.add(toJson) : await db.edit(toJson);
@@ -94,4 +94,8 @@ class UserModel {
       return list;
     });
   }
+
+  //  static updateProduct(UserModel user) {}
+
+  //  update() {}
 }

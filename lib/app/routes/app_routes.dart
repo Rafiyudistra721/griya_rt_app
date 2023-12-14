@@ -10,6 +10,8 @@ abstract class Routes {
   static const INVEN = _Paths.INVEN;
   static const FINANCE = _Paths.FINANCE;
   static const TRAN_FORM = _Paths.TRAN_FORM;
+  static const PROFILE = _Paths.PROFILE;
+  static const EDITPROFILE = _Paths.EDITPROFILE;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const INVEN = '/inven';
   static const FINANCE = '/finance';
   static const TRAN_FORM = '/tran-form';
+  static const PROFILE = '/profile';
+  static const EDITPROFILE = '/editprofile';
 }

@@ -12,6 +12,7 @@ import '../controllers/login_controller.dart';
 class LoginView extends GetView<LoginController> {
   GlobalKey<FormState> formKey = GlobalKey();
   LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
