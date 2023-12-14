@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -52,7 +54,7 @@ class LoginView extends GetView<LoginController> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 8,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                       borderRadius: BorderRadius.circular(15.0),
@@ -364,112 +366,6 @@ class LoginView extends GetView<LoginController> {
                                 ),
                               ),
                             5.height,
-                            //PROVINSI
-                            if (controller.isRegis)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_city,
-                                      color: colorPrimary,
-                                    ),
-                                    10.width,
-                                    SizedBox(
-                                      height: 60,
-                                      width: 230,
-                                      child: TextFormField(
-                                        showCursor: true,
-                                        cursorColor: colorPrimary,
-                                        controller: controller.provC,
-                                        autocorrect: false,
-                                        keyboardType: TextInputType.text,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.only(
-                                              top: 10, bottom: 5),
-                                          labelText: 'Provinsi',
-                                          labelStyle:
-                                              TextStyle(color: colorPrimary),
-                                          border: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: colorPrimary),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: colorPrimary),
-                                          ),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: colorPrimary),
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Provinsi wajib diisi';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            5.height,
-                            //KOTA
-                            if (controller.isRegis)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.business_outlined,
-                                      color: colorPrimary,
-                                    ),
-                                    10.width,
-                                    SizedBox(
-                                      height: 60,
-                                      width: 230,
-                                      child: TextFormField(
-                                        showCursor: true,
-                                        cursorColor: colorPrimary,
-                                        controller: controller.cityC,
-                                        autocorrect: false,
-                                        keyboardType: TextInputType.text,
-                                        textInputAction: TextInputAction.next,
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.only(
-                                              top: 10, bottom: 5),
-                                          labelText: 'Kota',
-                                          labelStyle:
-                                              TextStyle(color: colorPrimary),
-                                          border: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: colorPrimary),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: colorPrimary),
-                                          ),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: colorPrimary),
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Kota wajib diisi';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            5.height,
                             //ALAMAT
                             if (controller.isRegis)
                               Padding(
@@ -523,7 +419,7 @@ class LoginView extends GetView<LoginController> {
                                   ],
                                 ),
                               ),
-                            5.height,
+                            2.height,
                             // BIRTH DATE
                             if (controller.isRegis)
                               Container(
@@ -570,7 +466,7 @@ class LoginView extends GetView<LoginController> {
                                   ],
                                 ),
                               ),
-                            3.height,
+                            4.height,
                             if (controller.isRegis)
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -598,7 +494,7 @@ class LoginView extends GetView<LoginController> {
                                             color: colorPrimary,
                                           ),
                                         ),
-                                        5.width,
+                                        3.width,
                                         Radio<String>(
                                           value: 'male',
                                           groupValue: controller.selectedGender,
@@ -717,7 +613,8 @@ class LoginView extends GetView<LoginController> {
                         controller.isRegis
                             ? 'Sudah Punya Akun? Login Disini'
                             : 'Belum Punya Akun? Daftar Disini',
-                        style: const TextStyle(color: colorPrimary),
+                        style: const TextStyle(
+                            color: colorPrimary, fontStyle: FontStyle.italic),
                       ),
                     ),
                   ),
@@ -734,7 +631,8 @@ class LoginView extends GetView<LoginController> {
                         padding: const EdgeInsets.only(top: 12),
                         child: Text(
                           controller.isRegis ? '' : 'Lupa Password',
-                          style: const TextStyle(color: colorPrimary),
+                          style: const TextStyle(
+                              color: colorPrimary, fontStyle: FontStyle.italic),
                         ),
                       ),
                     ),

@@ -8,6 +8,8 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   final authC = Get.find<LoginController>();
+
+  HomeView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,26 +17,27 @@ class HomeView extends GetView<HomeController> {
         title: const Text('HomeView'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Align(
-          alignment: Alignment.topRight,
-          child: Column(
-            children: [
-              IconButton(
+      body: Column(
+        children: [
+          Center(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
                 onPressed: () => authC.logout(),
                 icon: const Icon(
                   Icons.logout,
                   color: Colors.blue,
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  Get.toNamed(Routes.PROFILE);
-                }, 
-                icon: const Icon(Icons.person))
-            ],
+            ),
           ),
-        ),
+          Center(
+        child: IconButton(
+          onPressed: () {
+            Get.toNamed(Routes.INVEN);
+          }, 
+          icon: const Icon(Icons.add)))
+        ],
       ),
     );
   }
