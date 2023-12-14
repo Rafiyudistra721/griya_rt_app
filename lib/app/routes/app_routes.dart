@@ -12,6 +12,8 @@ abstract class Routes {
   static const TRAN_FORM = _Paths.TRAN_FORM;
   static const PROFILE = _Paths.PROFILE;
   static const EDITPROFILE = _Paths.EDITPROFILE;
+  static const INFO = _Paths.INFO;
+  static const ADD_INFO = _Paths.ADD_INFO;
 }
 
 abstract class _Paths {
@@ -23,4 +25,6 @@ abstract class _Paths {
   static const TRAN_FORM = '/tran-form';
   static const PROFILE = '/profile';
   static const EDITPROFILE = '/editprofile';
+  static const INFO = '/info';
+  static const ADD_INFO = '/add-info';
 }

@@ -10,7 +10,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  GlobalKey<FormState> formKey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey();
   LoginView({super.key});
 
   @override
